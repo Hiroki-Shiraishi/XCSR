@@ -5,3 +5,8 @@ This is based ENTIRELY on "An algorithmic description of XCS" and "Get Real! XCS
 python main.py
 ```
 If you want to change the hyperparameters, refer to "parameters.py", please.
+
+---
+!CAUTION!
+---
+These programs are UNDER CONSTRUCTION

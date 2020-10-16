@@ -253,7 +253,7 @@ class XCSR:
             parent = None
             for clas in action_set:
                 if parent == None or parent.fitness / parent.numerosity < clas.fitness / clas.numerosity:
-                    for i in range(1, clas.numerosity):
+                    for i in range(1, clas.numerosity + 1):
                         if numpy.random.rand() < self.parameters.tau:
                             parent = clas
                             break
@@ -367,4 +367,3 @@ def _apply_crossover(child_1, child_2):
                 child_1.condition[i//2].c, child_2.condition[i//2].c = child_2.condition[i//2].c, child_1.condition[i//2].c
             else:
                 child_1.condition[i//2].s, child_2.condition[i//2].s = child_2.condition[i//2].s, child_1.condition[i//2].s
-        i = i + 1

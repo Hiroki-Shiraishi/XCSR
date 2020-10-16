@@ -12,8 +12,6 @@ from parameters import Parameters
 #The maximum reward
 rmax = 1000
 
-#The number of steps we learn for
-learning_steps = 20000
 
 '''
 #Load CSV dataset
@@ -27,7 +25,7 @@ with open(file,'r') as f:
     Returns a random state of the multiplexer
 """
 def state(): 
-    return [numpy.random.rand() for i in range(6)]
+    return [numpy.random.rand() for i in range(parameters.bit + 2 ** parameters.bit)]
 
 """
     The 6bit multiplexer is a single step problem, and thus always is at the end of the problem
@@ -46,8 +44,8 @@ def reward(state, action):
         else:
             str_state += '0'
   
-    address = str_state[:2]
-    data = str_state[2:]
+    address = str_state[:parameters.bit]
+    data = str_state[parameters.bit:]
 
     #Check the action
     if str(action) == data[int(address, 2)]:
@@ -63,7 +61,7 @@ def reward(state, action):
 #Set parameters
 parameters = xcsr.Parameters()
 print("[ XCSR General Parameters ]")
-print(" Learning Steps =", learning_steps)
+print(" Learning Steps =", parameters.learning_steps)
 print("              N =", parameters.N)
 print("           beta =", parameters.beta)
 print("          alpha =", parameters.alpha)
@@ -93,28 +91,30 @@ print("            tau =", parameters.tau)
 my_xcsr = xcsr.XCSR(parameters, state, reward, eop)
 
 #Make lists to generate CSV
-rewardList = [[0] for i in range(learning_steps)]
+rewardList = [[0] for i in range(parameters.learning_steps)]
 classifierList = [[0] * 11]
-accuracyList = [[0] for i in range(learning_steps - 1000)]
+accuracyList = [[0] for i in range(parameters.learning_steps - 1000)]
 
 #Begin learning
-this_correct = 0
+this_correct = all_correct = 0
 print("\n Iteration     Reward")
 print("========== ==========")
-for j in range(learning_steps):
+for j in range(parameters.learning_steps):
     my_xcsr.run_experiment()
 
     rand_state = state()
     this_correct = this_correct + reward(rand_state, my_xcsr.classify(rand_state))
+    all_correct += reward(rand_state, my_xcsr.classify(rand_state))
 
     if j % 1000 == 0 and j != 0:
         if j < 10000:
-            print("     ", j, "  ", round(this_correct / (j+1), 3))
+            print("     ", j, "  ", '{:.03f}'.format(this_correct / (j - (j - 1000))))
         else:
-            print("    ", j, "  ", round(this_correct / (j+1), 3))
+            print("    ", j, "  ", '{:.03f}'.format(this_correct / (j - (j - 1000))))
+        this_correct = 0
 
     rewardList[j][0]  = reward(rand_state,my_xcsr.classify(rand_state))
-    if j == learning_steps - 1:
+    if j == parameters.learning_steps - 1:
         classifierList[0][0] = "Classifier"
         classifierList[0][1] = "Condition(Center)"
         classifierList[0][2] = "Condition(Spread)"
@@ -129,12 +129,12 @@ for j in range(learning_steps):
         for clas in my_xcsr.population:
             classifierList.append([clas.id, clas.condition_c, clas.condition_s, clas.action, clas.fitness, clas.prediction, clas.error, clas.experience, clas.time_stamp, clas.action_set_size, clas.numerosity])
 
-print("ALL Performance " + ": " + str((this_correct / learning_steps / rmax) * 100) + "%");
+print("ALL Performance " + ": " + str((this_correct / parameters.learning_steps / rmax) * 100) + "%");
 print("The whole process is finished. After this, please check reward.csv, classifier.csv, and accuracy.csv files in 'result' folder. Thank you.")
 
 #Make accuracy list (Percentage of correct answers per 1000 iterations)
 ini_k = 0
-for ini_k in range(learning_steps - 1000):
+for ini_k in range(parameters.learning_steps - 1000):
     sum_1000 = 0
     for k in range(ini_k, 1000 + ini_k):
         sum_1000 = sum_1000 + rewardList[k][0]
