@@ -111,9 +111,9 @@ for j in range(parameters.learning_steps):
 
     if j % 1000 == 0 and j != 0:
         if j < 10000:
-            print("     ", j, "  ", '{:.03f}'.format(this_correct / (j - (j - 1000))))
+            print("     ", j, "  ", '{:.03f}'.format(this_correct / 1000))
         else:
-            print("    ", j, "  ", '{:.03f}'.format(this_correct / (j - (j - 1000))))
+            print("    ", j, "  ", '{:.03f}'.format(this_correct / 1000))
         this_correct = 0
 
     rewardList[j][0]  = reward(rand_state,my_xcsr.classify(rand_state))
