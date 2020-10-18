@@ -1,13 +1,11 @@
 import numpy
 import numpy.random
-import pandas as pd
 import xcsr
 import csv
-import struct
 from parameters import Parameters
 
 """
-    An implementation of an 6-bit multiplexer problem for XCSR
+    An implementation of an N-bit multiplexer problem for XCSR
 """
 #The maximum reward
 rmax = 1000
@@ -61,6 +59,7 @@ def reward(state, action):
 #Set parameters
 parameters = xcsr.Parameters()
 print("[ XCSR General Parameters ]")
+print("            bit =", parameters.bit)
 print(" Learning Steps =", parameters.learning_steps)
 print("              N =", parameters.N)
 print("           beta =", parameters.beta)
@@ -82,6 +81,7 @@ print("            F_I =", parameters.F_I)
 print("        p_explr =", parameters.p_explr)
 print("doGAsubsumption =", parameters.do_GA_subsumption)
 print("doASSubsumption =", parameters.do_action_set_subsumption)
+print(" doCondensation =", parameters.do_condensation_approach)
 print("crossoverMethod = two-point\n")
 
 print("[ XCSR Optional Settings]")
@@ -100,6 +100,9 @@ this_correct = all_correct = 0
 print("\n Iteration     Reward")
 print("========== ==========")
 for j in range(parameters.learning_steps):
+    if parameters.do_condensation_approach and j >= parameters.learning_steps / 2:
+        parameters.chi = 0
+        parameters.mu = 0
     my_xcsr.run_experiment()
 
     rand_state = state()
