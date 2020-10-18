@@ -6,9 +6,9 @@ class Parameters:
         self.bit          = 2
         self.state_length   = self.bit + 2 ** self.bit               #The number of bits in the state
         self.num_actions    = 2               #The number of actions in this system
-        self.learning_steps = 50000         #The number of steps we learn for
+        self.learning_steps = 20000          #The number of steps we learn for
 
-        self.N         = 400                  #The maximum size of the population in micro-classifiers
+        self.N         = 1000                #The maximum size of the population in micro-classifiers
         self.beta      = 0.2                  #The learning rate for the prediction, prediction error, fitness and action set size
         self.alpha     = 0.1                  #The accuracy gap
         self.e0        = 10                   #The minimum error value
@@ -29,9 +29,10 @@ class Parameters:
         self.tau       = 0.4                  #The probability for Tournament selection in Select Offspring function
 
         self.m         = 0.1                  #The maximum change in mutation
-        self.s0        = 0.5                  #The maximum spread in covering
+        self.s0        = 1                    #The maximum spread in covering
         
         self.do_GA_subsumption         = True #A boolean parameter whether do GA subsumption or not
         self.do_action_set_subsumption = True #A boolean parameter whether do action set subsumption or not
+        self.do_condensation_approach  = False
         
         
