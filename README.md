@@ -1,5 +1,5 @@
 # XCSR (XCS for Real Values)
-This is based ENTIRELY on "An algorithmic description of XCS" and "Get Real! XCS with Continuous-Valued Inputs". You can solve N-bit Multiplexer problem(default: N = 2).
+This is based ENTIRELY on "An algorithmic description of XCS" and "Get Real! XCS with Continuous-Valued Inputs". You can solve N-bit Multiplexer problem(default: N = 6).
 
 ```
 python main.py
