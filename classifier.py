@@ -2,20 +2,33 @@ import numpy
 import numpy.random
 
 """
-A classifier in XCSR
+A condition of a classifier in CSR expression
+(OBR and UBR expression have not been supported.)
 """
-
 class Condition:
+    """
+        Initializes an instance of Classifier's condition
+        @param center - The center of the interval
+        @param spread - The spread of the interval
+    """
     def __init__(self, center, spread):
         self.c = center
         self.s = spread
-
+    """
+    Returns the lower limit of the interval
+    """
     def get_lower_bound(self):
         return self.c - self.s
 
+    """
+    Returns the upper limit of the interval
+    """
     def get_upper_bound(self):
         return self.c + self.s
 
+"""
+A classifier in XCSR
+"""
 class Classifier:
     """
         Initializes an instance of Classifier

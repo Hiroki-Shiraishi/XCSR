@@ -5,19 +5,10 @@ import csv
 from parameters import Parameters
 
 """
-    An implementation of an N-bit multiplexer problem for XCSR
+    An implementation of an N-bit real multiplexer problem for XCSR
 """
 #The maximum reward
 rmax = 1000
-
-
-'''
-#Load CSV dataset
-file = './dataset/Mux-6.csv' 
-with open(file,'r') as f: 
-    reader = csv.reader(f)
-    data = [low for low in reader]
-'''
 
 """
     Returns a random state of the multiplexer
