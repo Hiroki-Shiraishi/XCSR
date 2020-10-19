@@ -31,8 +31,8 @@ class Parameters:
         self.m         = 0.1                  #The maximum change in mutation
         self.s0        = 1                    #The maximum spread in covering
         
-        self.do_GA_subsumption         = True #A boolean parameter whether do GA subsumption or not
-        self.do_action_set_subsumption = True #A boolean parameter whether do action set subsumption or not
+        self.do_GA_subsumption         = True  #A boolean parameter whether do GA subsumption or not
+        self.do_action_set_subsumption = True  #A boolean parameter whether do action set subsumption or not
         self.do_condensation_approach  = False #A boolean parameter whether do Wilson's rule condensation approach or not
         
         
