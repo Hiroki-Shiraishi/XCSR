@@ -1,5 +1,5 @@
 # XCSR (XCS for Real Values)
-This is based ENTIRELY on "An algorithmic description of XCS" and "Get Real! XCS with Continuous-Valued Inputs". You can solve N-bit Multiplexer problem(default: N = 6).
+This is based ENTIRELY on "An algorithmic description of XCS" and "Get Real! XCS with Continuous-Valued Inputs". You can solve N-bit Real Multiplexer problem(default: N = 6).
 
 XCSR supports real values input. The one dedicated to binary input is here: https://github.com/Hiroki-Shiraishi/XCS
 
