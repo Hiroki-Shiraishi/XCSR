@@ -88,7 +88,9 @@ class Classifier:
                     self.condition[i].s = 0
         
         if numpy.random.rand() < mu:
-            self.action = numpy.random.randint(0, num_actions)
+            used_actions = [self.action]
+            available_actions = list(set(range(num_actions)) - set(used_actions))
+            self.action = numpy.random.choice(available_actions)
     """
     def _apply_mutation(self, state, mu, num_actions):
         for i in range(len(self.condition)):
