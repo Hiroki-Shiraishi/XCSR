@@ -1,5 +1,6 @@
 import numpy
 import numpy.random
+from parameters import Parameters
 
 """
 A condition of a classifier in CSR expression
@@ -25,6 +26,9 @@ class Condition:
     """
     def get_upper_bound(self):
         return self.c + self.s
+
+    def __eq__(self, other):
+        return self.c == other.c and self.s == other.s
 
 """
 A classifier in XCSR
@@ -97,7 +101,10 @@ class Classifier:
                     self.condition[i].s = max(0.0, self.condition[i].s)
 
         if numpy.random.rand() < mu:
-            self.action = numpy.random.randint(0, num_actions)
+            used_actions = [self.action]
+            available_actions = list(set(range(num_actions)) - set(used_actions))
+            self.action = numpy.random.choice(available_actions)
+
     """
     DELETION VOTE (3.11 Deletion from the population ~The deletion vote~)
        Calculates the deletion vote for this classifier, that is, how much it thinks it should be deleted
@@ -155,6 +162,6 @@ class Classifier:
         return self.id
 
     def __eq__(self, other):
-        if other == None:
+        if other is None:
             return False
         return self.id == other.id

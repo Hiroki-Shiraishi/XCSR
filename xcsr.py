@@ -285,12 +285,24 @@ class XCSR:
         subsumed by some other classifier in the population
         @param clas - the classifier to insert
     """
-
+    """
     def _insert_in_population(self, clas):
         for c in self.population:
             if c.condition == clas.condition and c.action == clas.action:
                 c.numerosity += 1
                 return
+        self.population.append(clas)
+
+    """
+    def _insert_in_population(self, clas):
+        for c in self.population:
+            k = 0
+            for i in range(len(c.condition)):
+                if c.condition[i] == clas.condition[i] and c.action == clas.action:
+                    k += 1
+                if k == len(c.condition):
+                    c.numerosity += 1
+                    return
         self.population.append(clas)
 
     """
